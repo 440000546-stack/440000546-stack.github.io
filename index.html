@@ -1,66 +1,109 @@
-import React, { useState } from 'react';
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>母亲节快乐</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: "Microsoft YaHei", sans-serif;
+      background: #ffe4ec;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+    }
+    .petal {
+      position: absolute;
+      font-size: 24px;
+      animation: fall linear infinite;
+      pointer-events: none;
+    }
+    @keyframes fall {
+      from { transform: translateY(-100px) rotate(0deg); }
+      to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+    .envelope {
+      width: 500px;
+      height: 320px;
+      background: #f8b6c8;
+      border-radius: 30px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    button {
+      padding: 16px 32px;
+      border: none;
+      border-radius: 50px;
+      background: #ff4f87;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      z-index: 20;
+    }
+    .letter {
+      position: absolute;
+      width: 420px;
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      top: 60px;
+      opacity: 0;
+      transition: all 1s;
+      text-align: center;
+      line-height: 1.8;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .open .letter {
+      top: -260px;
+      opacity: 1;
+    }
+    .rose {
+      position: absolute;
+      font-size: 70px;
+    }
+    .left { left: 80px; bottom: 60px; }
+    .right { right: 80px; bottom: 60px; }
+  </style>
+</head>
+<body>
+  <div class="rose left">🌹🌹🌹</div>
+  <div class="rose right">🌹🌹🌹</div>
 
-export default function MothersDaySite() {
-  const [open, setOpen] = useState(false);
-  
-
-  return (
-    <div className="min-h-screen bg-pink-50 flex items-center justify-center relative overflow-hidden">
-      {Array.from({ length: 20 }).map((_, i) => (
-        <div
-          key={i}
-          className="absolute text-3xl animate-bounce pointer-events-none z-0"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `-${Math.random() * 100}px`,
-            animation: `fall ${5 + Math.random() * 5}s linear infinite`,
-            animationDelay: `${Math.random() * 5}s`
-          }}
-        >
-          🌸
-        </div>
-      ))}
-      <style>{`
-        @keyframes fall {
-          0% { transform: translateY(-100px) rotate(0deg); opacity: 0.8; }
-          100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-        }
-      `}</style>
-      {/* Roses */}
-      <div className="absolute left-16 bottom-20 text-8xl">🌹🌹🌹</div>
-      <div className="absolute left-28 bottom-32 text-8xl">🌹🌹</div>
-      <div className="absolute right-16 bottom-20 text-8xl">🌹🌹🌹</div>
-      <div className="absolute right-28 bottom-32 text-8xl">🌹🌹</div>
-
-      <div className="relative z-20">
-        {/* Envelope */}
-        <div className={`w-[500px] h-[320px] bg-pink-200 rounded-3xl shadow-2xl relative transition-all duration-1000 ${open ? 'scale-105' : ''}`}>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <button
-              style={{ zIndex: 50, position: 'relative' }}
-              onClick={() => setOpen(!open)}
-              className="px-8 py-4 bg-pink-500 text-white rounded-full text-xl font-bold shadow-lg hover:scale-110 transition"
-            >
-              {open ? '收起信件 💌' : '点击打开 💌'}
-            </button>
-          </div>
-
-          <div className={`absolute left-1/2 -translate-x-1/2 w-[420px] bg-white rounded-2xl shadow-xl p-10 transition-all duration-1000 ${open ? '-top-64 opacity-100' : 'top-16 opacity-0'}`}>
-            <h1 className="text-3xl font-bold text-pink-600 text-center mb-6">
-              母亲节快乐 ❤️
-            </h1>
-            <p className="text-lg text-gray-700 leading-8 text-center">
-              妈妈，感谢您一直以来的爱与付出。<br />
-              您是我最温暖的依靠，也是我最敬爱的人。<br /><br />
-              今晚让我为您做一顿晚饭，
-              希望能用这一点点心意，
-              让你开心！！！🍽️💕
-              <br /><br />
-              愿您永远开心、健康、美丽！
-            </p>
-          </div>
-        </div>
-      </div>
+  <div class="envelope" id="envelope">
+    <button onclick="toggleLetter()">点击打开 💌</button>
+    <div class="letter">
+      <h1 style="color:#ff4f87">母亲节快乐 ❤️</h1>
+      <p>
+        妈妈，感谢您一直以来的爱与付出。<br>
+        您是我最温暖的依靠，也是我最敬爱的人。<br><br>
+        今晚让我为您做一顿晚饭，<br>
+        希望能用这一点点心意让你开心！🍽️💕<br><br>
+        愿您永远开心、健康、美丽！
+      </p>
     </div>
-  );
-}
+  </div>
+
+  <script>
+    function toggleLetter(){
+      document.getElementById('envelope').classList.toggle('open');
+    }
+
+    for(let i=0;i<20;i++){
+      const p=document.createElement('div');
+      p.className='petal';
+      p.innerHTML='🌸';
+      p.style.left=Math.random()*100+'vw';
+      p.style.animationDuration=(5+Math.random()*5)+'s';
+      p.style.animationDelay=Math.random()*5+'s';
+      document.body.appendChild(p);
+    }
+  </script>
+</body>
+</html>
